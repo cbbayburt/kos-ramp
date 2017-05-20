@@ -7,6 +7,7 @@ global ui_announceMsg is "".
 global ui_debug     is true.  // Debug messages on console and screen
 global ui_debugNode is true. // Explain node planning
 global ui_debugAxes is false. // Explain 3-axis navigation e.g. docking
+global ui_consoleOnly is true.
 
 global ui_DebugStb is vecdraw(v(0,0,0), v(0,0,0), GREEN, "Stb", 1, false).
 global ui_DebugUp is vecdraw(v(0,0,0), v(0,0,0), BLUE, "Up", 1, false).
@@ -22,13 +23,20 @@ function uiConsole {
   print "T+" + round(time:seconds) + " " + prefix + ": " + msg.
 }
 
+function uiHudText {
+  parameter p0, p1, p2, p3, p4, p5.
+  if not ui_consoleOnly {
+    hudText(p0, p1, p2, p3, p4, p5).
+  }
+}
+
 function uiBanner {
   parameter prefix.
   parameter msg.
 
   if (time:seconds - ui_announce > 60) or (ui_announceMsg <> msg) {
     uiConsole(prefix, msg).
-    hudtext(msg, 10, 4, 24, GREEN, false).
+    uiHudText(msg, 10, 4, 24, GREEN, false).
     set ui_announce to time:seconds.
     set ui_announceMsg to msg.
   }
@@ -39,7 +47,7 @@ function uiWarning {
   parameter msg.
 
   uiConsole(prefix, msg).
-  hudtext(msg, 10, 4, 36, YELLOW, false).
+  uiHudText(msg, 10, 4, 36, YELLOW, false).
 }
 
 function uiError {
@@ -47,7 +55,7 @@ function uiError {
   parameter msg.
 
   uiConsole(prefix, msg).
-  hudtext(msg, 10, 4, 36, RED, false).
+  uiHudText(msg, 10, 4, 36, RED, false).
 }
 
 function uiShowPorts {
@@ -104,7 +112,7 @@ function uiDebug {
 
   if ui_debug {
     uiConsole("Debug", msg).
-    hudtext(msg, 1, 3, 24, WHITE, false).
+    uiHudText(msg, 1, 3, 24, WHITE, false).
   }
 }
 
