@@ -138,7 +138,7 @@ set ship:control:pilotmainthrottle to 0.
 
 until ship:obt:apoapsis >= apo {
   ascentStaging().
-  ascentWarping().
+  //ascentWarping().
   wait launch_tick.
 }
 
@@ -168,7 +168,7 @@ until ship:availablethrust > 0 {
 rcs on.
 
 until ship:altitude > body:atm:height {
-  ascentWarping().
+  //ascentWarping().
 }
 set warp to 0.
 

@@ -13,6 +13,9 @@ global warp_tick is 5.
 global warp_physics is true.
 global warp_t0 is time:seconds.
 global warp_t1 is warp_t0 + dt - 1.
+global warp_enabled is false.
+
+if warp_enabled {
 
 // special case: negative interval means skip all loop iterations & return
 if dt < 0 {
@@ -49,3 +52,5 @@ until time:seconds >= warp_t1 {
 
 unlock warp_dt.
 unlock warp_atmo.
+
+}
