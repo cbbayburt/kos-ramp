@@ -6,6 +6,8 @@
 // MUST NOT be used for vessels that will operate out of comms range!!
 /////////////////////////////////////////////////////////////////////////////
 
+parameter alt, hdg.
+
 switch to archive.
 cd("ramp").
 
@@ -22,7 +24,7 @@ if (ship:status = "flying" or ship:status = "sub_orbital") {
     uiBanner("Mission", "Ascend to orbit.").
     //     KEO: 2863334.06
     // parking: body:atm:height + (body:radius / 4)
-    run launch_asc(body:atm:height + (body:radius / 4)).
+    run launch_asc(alt, hdg).
   }
   else {
     uiBanner("Mission", "Land on " + body:name + ".").

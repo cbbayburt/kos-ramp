@@ -34,7 +34,7 @@ if ship:status = "flying" or ship:status = "sub_orbital" {
     run land.
   } else {
     uiBanner("Mission", "Ascend from " + body:name).
-    run launch_asc(body:atm:height + (body:radius / 4)).
+    run launch_asc(body:atm:height + (body:radius / 4), 90).
   }
 }
 

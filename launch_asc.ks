@@ -7,6 +7,7 @@
 
 // Final apoapsis (m altitude)
 parameter apo.
+parameter targHeading.
 
 // Number of seconds to sleep during ascent loop
 global launch_tick is 1.
@@ -38,12 +39,12 @@ function ascentSteering {
 
   // Ideal gravity-turn azimuth (inclination) and facing at present altitude.
   local inclin is min(90, max(0, 90 * cos(launch_gtScale * 90 * gtPct))).
-  local gtFacing is heading(90, inclin):vector.
+  local gtFacing is heading(targHeading, inclin):vector.
 
   local prodot is vdot(ship:facing:vector, prograde:vector).
 
   if gtPct <= 0 {
-    return heading(0, 90).
+    return ship:facing.
   } else {
     return lookdirup(gtFacing, ship:facing:upvector).
   }
