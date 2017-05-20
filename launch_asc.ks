@@ -96,6 +96,9 @@ function ascentStaging {
     }
   }
 
+  // Don't stage too quickly
+  if time:seconds - launch_tStage < 1 { return. }
+
   if (Nsrb > 0) and (stage:solidfuel < 10) {
     stage.
     set launch_tSrbSep to time:seconds.
