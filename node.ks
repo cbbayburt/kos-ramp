@@ -24,14 +24,9 @@ global nodeFacing is lookdirup(nodeNd:deltav, ship:facing:topvector).
 global nodeDob is (nodeNd:deltav:mag / nodeAccel).
 
 uiDebug("Orient to burn").
-wait until vdot(facing:forevector, nodeFacing:forevector) >= 0.995 or nodeNd:eta <= nodeDob / 2.
+wait until nodeNd:eta <= nodeDob / 2.
 
 // warp to burn time; give 3 seconds slack for final steering adjustments
-global nodeHang is (nodeNd:eta - nodeDob/2) - 3.
-if nodeHang > 0 {
-  run warp(nodeHang).
-  wait 3.
-}
 
 global nodeDone  is false.
 global nodeDv0   is nodeNd:deltav.
@@ -55,9 +50,9 @@ until nodeDone
       //   1) overshot (node delta vee is pointing opposite from initial)
       //   2) burn DV increases (off target due to wobbles)
       //   3) burn DV gets too small for main engines to cope with
-      set nodeDone to (vdot(nodeDv0, nodeNd:deltav) < 0) or
+      set nodeDone to (vang(nodeDv0, nodeNd:deltav) > 45) or
                       (nodeNd:deltav:mag > nodeDvMin + 0.1) or
-                      (nodeNd:deltav:mag <= 0.2).
+                      (nodeNd:deltav:mag <= 0.001).
     } else {
         // no nodeAccel -- out of fuel; time to auto stage!
         uiWarning("Node", "Stage " + stage:number + " separation during burn").
