@@ -27,7 +27,11 @@ global launch_gt1 is body:atm:height * 0.8.
 // turn, and the sharpness is a scaling factor for the input to the cosine
 // function. Higher numbers are sharper, lower numbers are gentler.
 // TODO get rid of this once we solve "tipping" issue
-global launch_gtScale is 1.
+if defined launch_gtScale { }
+else {
+  global launch_gtScale is 1.
+  uiDebug("Setting launch_gtScale to " + launch_gtScale).
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // Steering function that uses the launch_gt* to perform a gravity turn.
