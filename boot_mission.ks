@@ -9,8 +9,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 if ship:status = "prelaunch" {
-  switch to archive.
-  cd("ramp").
+  cd("0:ramp").
 
   list files in scripts.
   for file in scripts {

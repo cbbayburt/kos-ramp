@@ -8,8 +8,7 @@
 
 parameter alt, hdg.
 
-switch to archive.
-cd("ramp").
+cd("0:ramp").
 
 run once lib_ui.
 
